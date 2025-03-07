@@ -16,54 +16,84 @@ document.addEventListener("DOMContentLoaded", function() {
             const filterableColumns = ['Publisher'];
 
             filterableColumns.forEach(columnName => {
-                const filterContainer = document.createElement('div'); // Container for each filter set
+                const filterContainer = document.createElement('div');
                 filterContainer.classList.add('filter-container');
 
                 const label = document.createElement('label');
                 label.textContent = `Filter by ${columnName}:`;
                 filterContainer.appendChild(label);
 
-                const selectElement = document.createElement('select');
-                selectElement.classList.add('filter-dropdown');
-                selectElement.multiple = true; // Enable multiple selection
+                const dropdownContainer = document.createElement('div');
+                dropdownContainer.classList.add('dropdown-container');
 
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.text = `Select ${columnName}(s)`;
-                selectElement.appendChild(defaultOption);
+                const dropdownButton = document.createElement('button');
+                dropdownButton.textContent = `Select ${columnName}(s)`;
+                dropdownButton.classList.add('dropdown-button');
+                dropdownContainer.appendChild(dropdownButton);
+
+                const dropdownContent = document.createElement('div');
+                dropdownContent.classList.add('dropdown-content');
+                dropdownContainer.appendChild(dropdownContent);
 
                 const uniqueValues = [...new Set(tableData.map(row => row[columnName]))].filter(Boolean).sort();
 
                 uniqueValues.forEach(value => {
-                    const option = document.createElement('option');
-                    option.value = value;
-                    option.text = value;
-                    selectElement.appendChild(option);
+                    const checkboxContainer = document.createElement('div');
+                    checkboxContainer.classList.add('checkbox-container');
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = value;
+                    checkbox.id = `checkbox-${columnName}-${value}`; // Unique ID
+
+                    const checkboxLabel = document.createElement('label');
+                    checkboxLabel.textContent = value;
+                    checkboxLabel.htmlFor = `checkbox-${columnName}-${value}`; // Connect label to checkbox
+
+                    checkboxContainer.appendChild(checkbox);
+                    checkboxContainer.appendChild(checkboxLabel);
+                    dropdownContent.appendChild(checkboxContainer);
                 });
 
-                filterContainer.appendChild(selectElement);
+                dropdownButton.addEventListener('click', function() {
+                    dropdownContent.classList.toggle('show');
+                });
 
                 const clearButton = document.createElement('button');
                 clearButton.textContent = 'Clear Filters';
                 clearButton.addEventListener('click', function() {
-                    selectElement.value = ''; // Clear selection
-                    table.clearFilter(); // Clear Tabulator filters
+                    const checkboxes = dropdownContent.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => checkbox.checked = false);
+                    table.clearFilter();
                 });
                 filterContainer.appendChild(clearButton);
 
-                selectElement.addEventListener('change', function() {
-                    const selectedValues = Array.from(this.selectedOptions).map(option => option.value).filter(value => value !== ''); // Get selected values, exclude empty
+                dropdownContent.addEventListener('click', function(event) {
+                    if (event.target.type === 'checkbox') {
+                        const selectedValues = Array.from(dropdownContent.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
 
-                    if (selectedValues.length > 0) {
-                        table.setFilter(function(row) {
-                            return selectedValues.includes(row[columnName]);
-                        });
-                    } else {
-                        table.clearFilter(columnName); // Clear filter if no selection
+                        if (selectedValues.length > 0) {
+                            table.setFilter(function(row) {
+                                return selectedValues.includes(row[columnName]);
+                            });
+                        } else {
+                            table.clearFilter(columnName);
+                        }
                     }
                 });
 
                 filtersSection.appendChild(filterContainer);
+            });
+
+            window.addEventListener('click', function(event) {
+                if (!event.target.matches('.dropdown-button')) {
+                    const dropdowns = document.querySelectorAll('.dropdown-content');
+                    dropdowns.forEach(dropdown => {
+                        if (dropdown.classList.contains('show')) {
+                            dropdown.classList.remove('show');
+                        }
+                    });
+                }
             });
         });
 });
