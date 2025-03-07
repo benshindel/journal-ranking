@@ -54,58 +54,6 @@ footer {
     border-top: 1px solid #d2b48c;
 }
 
-.dropdown-container {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-button {
-    background-color: #f0ead6; /* Light tan button */
-    padding: 10px 15px;
-    border: 1px solid #d2b48c;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-button:hover {
-    background-color: #e8e3d9; /* Slightly darker tan on hover */
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fffaf0;
-    min-width: 200px; /* Increase width */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    max-height: 300px; /* Increase max height */
-    overflow-y: auto;
-    border: 1px solid #d2b48c;
-    border-radius: 5px;
-}
-
-.dropdown-content.show {
-    display: block;
-}
-
-.checkbox-container {
-    padding: 8px 15px;
-    border-bottom: 1px solid #e8e3d9; /* Add dividers */
-}
-
-.checkbox-container:last-child {
-    border-bottom: none; /* Remove border from last item */
-}
-
-.checkbox-container label {
-    margin-left: 8px;
-    cursor: pointer;
-}
-
-.filter-container {
-    margin-bottom: 15px;
-}
 
 /* Tabulator specific styles (if needed) */
 .tabulator-header {
@@ -119,4 +67,60 @@ footer {
 
 .tabulator-row:hover {
     background-color: #f0ead6;
+}
+
+
+/* Dropdown Styles */
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background-color: #f0ead6;
+    padding: 10px 15px;
+    border: 1px solid #d2b48c;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-button:hover {
+    background-color: #e8e3d9;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fffaf0;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #d2b48c;
+    border-radius: 5px;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.checkbox-container {
+    padding: 8px 15px;
+    border-bottom: 1px solid #e8e3d9;
+}
+
+.checkbox-container:last-child {
+    border-bottom: none;
+}
+
+.checkbox-container label {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.filter-container {
+    margin-bottom: 15px;
 }
