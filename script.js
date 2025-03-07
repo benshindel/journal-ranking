@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // --- Create Dropdown Filters ---
             const filtersSection = document.getElementById('filters-section');
-            const filterableColumns = ['Category', 'Region']; // Columns you want to filter by
+            const filterableColumns = ['Publisher']; // Columns you want to filter by
 
             filterableColumns.forEach(columnName => {
                 const selectElement = document.createElement('select');
