@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 selectElement.multiple = true;
                 filterContainer.appendChild(selectElement);
 
+                // Add "Select All" Option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = ''; // Empty value for clearing
+                defaultOption.text = `Select ${columnName}`;
+                selectElement.appendChild(defaultOption);
+
                 const uniqueValues = [...new Set(tableData.map(row => row[columnName]))].filter(Boolean).sort();
 
                 uniqueValues.forEach(value => {
@@ -37,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
 
                 selectElement.addEventListener('change', function() {
-                    const selectedValues = Array.from(this.selectedOptions).map(option => option.value);
+                    const selectedValues = Array.from(this.selectedOptions).map(option => option.value).filter(value => value !== ''); // Filter out empty value
 
                     if (selectedValues.length > 0) {
                         table.setFilter(function(row) {
