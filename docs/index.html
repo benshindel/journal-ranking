@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Rankings by Elite Institution Presence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://unpkg.com/tabulator-tables@6.3.0/dist/css/tabulator_semanticui.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Journal Rankings</h1>
+        <p class="subtitle">Ranking academic journals by elite institution authorship</p>
+    </header>
+
+    <main>
+        <section id="data-notice">
+            <strong>Preview:</strong> Based on a partial sample (~5%) of the OpenAlex dataset.
+            Rankings may shift with the full dataset. See <a href="methodology.md">methodology</a> for details.
+        </section>
+
+        <section id="controls">
+            <div class="control-row">
+                <div class="control-group">
+                    <label for="field-filter">Field</label>
+                    <select id="field-filter">
+                        <option value="">All Fields</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="domain-filter">Domain</label>
+                    <select id="domain-filter">
+                        <option value="">All Domains</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="min-papers">Min Papers</label>
+                    <select id="min-papers">
+                        <option value="50">50+</option>
+                        <option value="100">100+</option>
+                        <option value="200" selected>200+</option>
+                        <option value="500">500+</option>
+                        <option value="1000">1000+</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="min-coverage">Min Inst. Coverage</label>
+                    <select id="min-coverage">
+                        <option value="0">Any</option>
+                        <option value="0.25">25%+</option>
+                        <option value="0.50" selected>50%+</option>
+                        <option value="0.75">75%+</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-row">
+                <div id="result-count"></div>
+            </div>
+        </section>
+
+        <section id="table-section">
+            <div id="ranking-table"></div>
+        </section>
+
+        <section id="methodology-section">
+            <h2>Methodology</h2>
+            <p>
+                Journals are ranked by the fraction of their papers that have at least one author
+                from an elite ("tier") institution. The denominator includes only papers where
+                OpenAlex identified at least one institutional affiliation.
+            </p>
+            <p>
+                <strong>Tier 1</strong> (4 institutions): Harvard, Stanford, MIT, Oxford.
+                <br>
+                <strong>Tier 2</strong> (23 institutions, inclusive of Tier 1): adds Google, Meta,
+                Microsoft, NIH, US DHHS, Chinese Academy of Sciences, ETH Zurich, UCL, Imperial,
+                U of Toronto, UC Berkeley, Princeton, Johns Hopkins, NUS, Cambridge, Tsinghua,
+                U of Tokyo, Max Planck, CNRS.
+            </p>
+            <p>
+                Papers are filtered to type "article" with at least 10 cited references, excluding
+                paratext. Data from OpenAlex (2015-2024).
+                <a href="methodology.md">Full methodology</a>.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data: <a href="https://openalex.org" target="_blank">OpenAlex</a> |
+           Built by Ben Shindel | 2026</p>
+    </footer>
+
+    <script src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

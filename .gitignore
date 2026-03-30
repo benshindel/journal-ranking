@@ -1,0 +1,14 @@
+# Data files (too large for git)
+snapshot/analysis/
+snapshot/output/
+
+# OS files
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor lock files
+.~lock.*
